@@ -1,0 +1,50 @@
+{
+  "name": "generator-eden",
+  "version": "1.0.0",
+  "description": "A Yeoman generator for creating EdenJS projects",
+  "main": "generators/app/index.js",
+  "scripts": {
+    "test": "mocha",
+    "prepublish": "npm test",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eden-js/generator-eden.git"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "generator",
+    "eden",
+    "eden-js",
+    "edenjs"
+  ],
+  "author": {
+    "name": "OhYea777",
+    "email": "contact@jacktaylor.nz",
+    "url": "https://jacktaylor.nz"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eden-js/generator-eden/issues"
+  },
+  "homepage": "https://github.com/eden-js/generator-eden#readme",
+  "files": [
+    "generators"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^3.1.1",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@eden-js/eslint-config-eden": "^1.0.4",
+    "eslint": "^5.2.0",
+    "mocha": "^5.2.0",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^1.9.1"
+  }
+}
