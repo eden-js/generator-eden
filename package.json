@@ -37,13 +37,13 @@
     "generators"
   ],
   "dependencies": {
-    "slugg": "^1.2.1",
+    "normalize-package-data": "^2.4.0",
     "validate-npm-package-name": "^3.0.0",
     "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.2"
   },
   "devDependencies": {
-    "@eden-js/eslint-config-eden": "^1.0.4",
+    "@eden-js/eslint-config-eden": "^1.0.5",
     "eslint": "^5.2.0",
     "mocha": "^5.2.0",
     "yeoman-assert": "^3.1.1",

@@ -14,7 +14,7 @@ namespace API {
     main?                 : string;
     bin?                  : string | IBinMap;
     man?                  : string | string[];
-    directories?          : string | string[];
+    directories?          : IDirectories;
     repository?           : string | IRepository;
     scripts?              : IScriptsMap;
     config?               : IConfig;
@@ -57,7 +57,7 @@ namespace API {
 
   export interface IDirectories {
     lib?     : string;
-    bin?     : string;
+    test?    : string;
     man?     : string;
     doc?     : string;
     example? : string;

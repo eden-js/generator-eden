@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@eden-js/eslint-config-eden@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@eden-js/eslint-config-eden/-/eslint-config-eden-1.0.4.tgz#cc250bf91cc209eac52bc582a5c21a09b978c064"
+"@eden-js/eslint-config-eden@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@eden-js/eslint-config-eden/-/eslint-config-eden-1.0.5.tgz#557f8d6a3626823860eceb7e7b726e84dd49f3c3"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1464,7 +1464,7 @@ nise@^1.3.3:
     path-to-regexp "^1.7.0"
     text-encoding "^0.6.4"
 
-normalize-package-data@^2.3.2:
+normalize-package-data@^2.3.2, normalize-package-data@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.4.0.tgz#12f95a307d58352075a04907b84ac8be98ac012f"
   dependencies:
@@ -1904,10 +1904,6 @@ slice-ansi@1.0.0:
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-1.0.0.tgz#044f1a49d8842ff307aad6b505ed178bd950134d"
   dependencies:
     is-fullwidth-code-point "^2.0.0"
-
-slugg@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/slugg/-/slugg-1.2.1.tgz#e752af2241af3f2714463c5de225cea47608740a"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
