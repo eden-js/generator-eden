@@ -2,10 +2,11 @@
 const Generator = require('yeoman-generator');
 
 // Require dependencies
-const fs            = require('fs');
-const normalizeData = require('normalize-package-data');
-const semver        = require('semver');
-const validateName  = require('validate-npm-package-name');
+const fs              = require('fs');
+const normalizeData   = require('normalize-package-data');
+const semver          = require('semver');
+const validateName    = require('validate-npm-package-name');
+const validateLicense = require('validate-npm-package-license');
 
 /**
  * Create Eden NPM Generator class
@@ -61,6 +62,12 @@ class EdenNPMGenerator extends Generator {
       'description' : 'Package repository'
     });
 
+    // Add package license option
+    this.option('package-license', {
+      'type'        : String,
+      'description' : 'Package license'
+    });
+
     // Set private variables
     this._config = Object.create(null);
   }
@@ -99,6 +106,7 @@ class EdenNPMGenerator extends Generator {
     packageJSON.repository  = this._config.packageRepository;
     packageJSON.keywords    = this._config.packageKeywords;
     packageJSON.author      = this._config.packageAuthor;
+    packageJSON.license     = this._config.packageLicense;
 
     // Normalize package json
     normalizeData(packageJSON);
@@ -150,7 +158,7 @@ class EdenNPMGenerator extends Generator {
     delete this.options['package-name'];
 
     // Log error
-    console.error(...(validation.errors || []).concat(validation.warnings || []));
+    console.error(`Sorry, ${(validation.errors || []).concat(validation.warnings || []).join(' and ')}.`);
 
     // Ask for package name again
     return await this.askForPackageName();
@@ -239,7 +247,7 @@ class EdenNPMGenerator extends Generator {
     // Run try/catch
     try {
       // Read destination directory
-      let files = fs.readdirSync(this.destinationRoot());
+      let files = fs.readdirSync(this.destinationRoot('.'));
 
       // Filter files
       files = files.filter((file) => {
@@ -306,7 +314,7 @@ class EdenNPMGenerator extends Generator {
     // Run try/catch
     try {
       // Read destination directory
-      const dirs = fs.readdirSync(this.destinationRoot());
+      const dirs = fs.readdirSync(this.destinationRoot('.'));
 
       /** @type {API.IDirectories} */
       const directories = Object.create(null);
@@ -490,6 +498,46 @@ class EdenNPMGenerator extends Generator {
       'message' : 'Package author',
       'default' : this.options['package-author']
     })).packageAuthor;
+  }
+
+  async askForPackageLicense () {
+    // Check force
+    if (this.options['force']) {
+      // Set package license in config
+      this._config.packageLicense = this.options['package-license'];
+
+      // Return
+      return;
+    }
+
+    // Prompt for package license
+    const packageLicense = (await this.prompt({
+      'type'    : 'input',
+      'name'    : 'packageLicense',
+      'message' : 'Package license',
+      'default' : validateLicense(this.options['package-license'] || '').validForNewPackages ? this.options['package-license'] : 'ISC'
+    })).packageLicense;
+
+    // Set validation
+    const validation = validateLicense(packageLicense);
+
+    // Validate package license
+    if (validation.validForNewPackages) {
+      // Set package license in config
+      this._config.packageLicense = packageLicense;
+
+      // Return
+      return;
+    }
+
+    // Delete from options
+    delete this.options['package-license'];
+
+    // Log error
+    console.error(`Sorry, ${(validation.errors || []).concat(validation.warnings || []).join(' and ')}.`);
+
+    // Ask for package license again
+    return await this.askForPackageLicense();
   }
 
   /**

@@ -40,3 +40,6 @@ app/bundles
 
 # Redis
 *.rdb
+
+# Temp
+tmp
