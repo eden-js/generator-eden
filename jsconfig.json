@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "checkJs": true
+    "checkJs": true,
+    "moduleResolution": "node"
   },
   "typeAcquisition": {
     "include": [

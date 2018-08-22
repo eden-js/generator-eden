@@ -413,7 +413,7 @@ class EdenNPMGenerator extends Generator {
 
     // Run try/catch
     try {
-      /** @type {string | string[]} */
+      // Set gconf
       let gconf = fs.readFileSync(this.destinationPath('.git', 'config'), 'utf8');
 
       // Check gconf
@@ -500,6 +500,9 @@ class EdenNPMGenerator extends Generator {
     })).packageAuthor;
   }
 
+  /**
+   * Prompts for the license of this NPM package
+   */
   async askForPackageLicense () {
     // Check force
     if (this.options['force']) {
