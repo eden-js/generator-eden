@@ -1,7 +1,17 @@
 {
   "name": "generator-eden",
-  "version": "1.0.0",
   "description": "A Yeoman generator for creating EdenJS projects",
+  "version": "1.0.0",
+  "dependencies": {
+    "normalize-package-data": "^2.4.0",
+    "validate-npm-package-license": "^3.0.4",
+    "validate-npm-package-name": "^3.0.0",
+    "yeoman-generator": "^3.1.1",
+    "yosay": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=10"
+  },
   "main": "generators/app/index.js",
   "scripts": {
     "test": "mocha",
@@ -12,9 +22,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eden-js/generator-eden.git"
-  },
-  "engines": {
-    "node": ">=10"
   },
   "keywords": [
     "yeoman-generator",
@@ -36,18 +43,16 @@
   "files": [
     "generators"
   ],
-  "dependencies": {
-    "normalize-package-data": "^2.4.0",
-    "validate-npm-package-license": "^3.0.4",
-    "validate-npm-package-name": "^3.0.0",
-    "yeoman-generator": "^3.1.1",
-    "yosay": "^2.0.2"
-  },
   "devDependencies": {
     "@eden-js/eslint-config-eden": "^1.0.5",
-    "eslint": "^5.2.0",
+    "eslint": "^5.13.0",
     "mocha": "^5.2.0",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^1.9.1"
+    "yeoman-test": "^1.9.1",
+    "@edenjs/eslint-config-eden": "^2.0.14",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4"
   }
 }
