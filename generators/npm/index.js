@@ -12,14 +12,13 @@ const validateLicense = require('validate-npm-package-license');
  * Create Eden NPM Generator class
  */
 class EdenNPMGenerator extends Generator {
-
   /**
    * Construct Eden NPM Generator class
    *
    * @param {string|string[]} args
    * @param {{}} opts
    */
-  constructor (args, opts) {
+  constructor(args, opts) {
     // Run super
     super(args, opts);
 
@@ -28,44 +27,44 @@ class EdenNPMGenerator extends Generator {
 
     // Add package name option
     this.option('package-name', {
-      'type'        : String,
-      'description' : 'Package name'
+      type        : String,
+      description : 'Package name',
     });
 
     // Add package version option
     this.option('package-version', {
-      'type'        : String,
-      'description' : 'Package version'
+      type        : String,
+      description : 'Package version',
     });
 
     // Add package description option
     this.option('package-description', {
-      'type'        : String,
-      'description' : 'Package description'
+      type        : String,
+      description : 'Package description',
     });
 
     // Add package bin option
     this.option('package-bin', {
-      'type'        : String,
-      'description' : 'Package bin'
+      type        : String,
+      description : 'Package bin',
     });
 
     // Add package test option
     this.option('package-test', {
-      'type'        : String,
-      'description' : 'Package test command'
+      type        : String,
+      description : 'Package test command',
     });
 
     // Add package repository option
     this.option('package-repository', {
-      'type'        : String,
-      'description' : 'Package repository'
+      type        : String,
+      description : 'Package repository',
     });
 
     // Add package license option
     this.option('package-license', {
-      'type'        : String,
-      'description' : 'Package license'
+      type        : String,
+      description : 'Package license',
     });
 
     // Set private variables
@@ -79,7 +78,7 @@ class EdenNPMGenerator extends Generator {
    *
    * @returns {string}
    */
-  _niceName (name) {
+  _niceName(name) {
     // Return cleaned name
     return name.replace(/^node-|[.-]js$/g, '').replace(' ', '-').toLowerCase();
   }
@@ -89,31 +88,31 @@ class EdenNPMGenerator extends Generator {
    *
    * @returns {API.IPackageJSON}
    */
-  _constructPackageJSON () {
+  _constructPackageJSON() {
     /** @type {API.IPackageJSON} */
     const packageJSON = {};
 
     // Set variables
-    packageJSON.name        = this._config.packageName;
-    packageJSON.version     = this._config.packageVersion;
+    packageJSON.name = this._config.packageName;
+    packageJSON.version = this._config.packageVersion;
     packageJSON.description = this._config.packageDescription;
-    packageJSON.main        = this._config.packageMain;
-    packageJSON.bin         = this._config.packageBin;
+    packageJSON.main = this._config.packageMain;
+    packageJSON.bin = this._config.packageBin;
     packageJSON.directories = this._config.packageDirectories;
-    packageJSON.scripts     = {
-      'test' : this._config.packageTest
+    packageJSON.scripts = {
+      test : this._config.packageTest,
     };
-    packageJSON.repository  = this._config.packageRepository;
-    packageJSON.keywords    = this._config.packageKeywords;
-    packageJSON.author      = this._config.packageAuthor;
-    packageJSON.license     = this._config.packageLicense;
+    packageJSON.repository = this._config.packageRepository;
+    packageJSON.keywords = this._config.packageKeywords;
+    packageJSON.author = this._config.packageAuthor;
+    packageJSON.license = this._config.packageLicense;
 
     // Normalize package json
     normalizeData(packageJSON);
 
     // Remove old data
-    delete packageJSON['readme'];
-    delete packageJSON['_id'];
+    delete packageJSON.readme;
+    delete packageJSON._id;
 
     // Return package json
     return packageJSON;
@@ -124,9 +123,9 @@ class EdenNPMGenerator extends Generator {
    *
    * @returns {Promise}
    */
-  async askForPackageName () {
+  async askForPackageName() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package name in config
       this._config.packageName = this._niceName(this.options['package-name'] || '');
 
@@ -136,10 +135,10 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package name
     const packageName = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageName',
-      'message' : 'Package name',
-      'default' : this._niceName(this.options['package-name'] || this.appname)
+      type    : 'input',
+      name    : 'packageName',
+      message : 'Package name',
+      default : this._niceName(this.options['package-name'] || this.appname),
     })).packageName;
 
     // Validate package name
@@ -169,9 +168,9 @@ class EdenNPMGenerator extends Generator {
    *
    * @returns {Promise}
    */
-  async askForPackageVersion () {
+  async askForPackageVersion() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package version in config
       this._config.packageVersion = this.options['package-version'];
 
@@ -181,10 +180,10 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package version
     const packageVersion = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageVersion',
-      'message' : 'Package version',
-      'default' : semver.valid(this.options['package-version']) ? this.options['package-version'] : '1.0.0'
+      type    : 'input',
+      name    : 'packageVersion',
+      message : 'Package version',
+      default : semver.valid(this.options['package-version']) ? this.options['package-version'] : '1.0.0',
     })).packageVersion;
 
     // Validate package version
@@ -209,9 +208,9 @@ class EdenNPMGenerator extends Generator {
   /**
    * Prompts for the description of this NPM package
    */
-  async askForPackageDescription () {
+  async askForPackageDescription() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package description in config
       this._config.packageDescription = this.options['package-description'];
 
@@ -221,19 +220,19 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package description
     this._config.packageDescription = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageDescription',
-      'message' : 'Package description',
-      'default' : this.options['package-description']
+      type    : 'input',
+      name    : 'packageDescription',
+      message : 'Package description',
+      default : this.options['package-description'],
     })).packageDescription;
   }
 
   /**
    * Prompts for the entry point of this NPM package
    */
-  async askForPackageMain () {
+  async askForPackageMain() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package main in config
       this._config.packageMain = this.options['package-main'];
 
@@ -272,19 +271,19 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package main
     this._config.packageMain = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageMain',
-      'message' : 'Package entry point',
-      'default' : this.options['package-main'] || index
+      type    : 'input',
+      name    : 'packageMain',
+      message : 'Package entry point',
+      default : this.options['package-main'] || index,
     })).packageMain;
   }
 
   /**
    * Checks the destination directory for a bin folder
    */
-  checkPackageBin () {
+  checkPackageBin() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package bin in config
       this._config.packageBin = this.options['package-bin'];
 
@@ -310,7 +309,7 @@ class EdenNPMGenerator extends Generator {
   /**
    * Checks the destination directory for folders
    */
-  checkPackageDirectories () {
+  checkPackageDirectories() {
     // Run try/catch
     try {
       // Read destination directory
@@ -323,19 +322,19 @@ class EdenNPMGenerator extends Generator {
       dirs.forEach((dir) => {
         // Switch dir
         switch (dir) {
-          case 'example'  :
-          case 'examples' :
+          case 'example':
+          case 'examples':
             return directories.example = dir;
-          case 'test'  :
-          case 'tests' :
+          case 'test':
+          case 'tests':
             return directories.test = dir;
-          case 'doc'  :
-          case 'docs' :
+          case 'doc':
+          case 'docs':
             return directories.doc = dir;
-          case 'man' :
+          case 'man':
             return directories.man = dir;
-          case 'lib'  :
-          case 'libs' :
+          case 'lib':
+          case 'libs':
             return directories.lib = dir;
         }
       });
@@ -353,9 +352,9 @@ class EdenNPMGenerator extends Generator {
   /**
    * Prompts for the test script to use for this NPM package
    */
-  async askForPackageTest () {
+  async askForPackageTest() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package test in config
       this._config.packageTest = this.options['package-test'];
 
@@ -388,19 +387,19 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package test
     this._config.packageTest = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageTest',
-      'message' : 'Package test command',
-      'default' : this.options['package-test'] || script
+      type    : 'input',
+      name    : 'packageTest',
+      message : 'Package test command',
+      default : this.options['package-test'] || script,
     })).packageTest || 'echo "Error: no test specified" && exit 1';
   }
 
   /**
    * Prompts for the repository of this NPM package
    */
-  async askForPackageRepository () {
+  async askForPackageRepository() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package repository in config
       this._config.packageRepository = this.options['package-repository'];
 
@@ -447,28 +446,28 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package repository
     this._config.packageRepository = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageRepository',
-      'message' : 'Package repository',
-      'default' : repository
+      type    : 'input',
+      name    : 'packageRepository',
+      message : 'Package repository',
+      default : repository,
     })).packageRepository;
   }
 
   /**
    * Prompts for the keywords of this NPM package
    */
-  async askForPackageKeywords () {
+  async askForPackageKeywords() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Return
       return;
     }
 
     // Prompt for package description
     const packageKeywords = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageKeywords',
-      'message' : 'Package keywords'
+      type    : 'input',
+      name    : 'packageKeywords',
+      message : 'Package keywords',
     })).packageDescription;
 
     // Check package keywords
@@ -481,9 +480,9 @@ class EdenNPMGenerator extends Generator {
   /**
    * Prompts for the author of this NPM package
    */
-  async askForPackageAuthor () {
+  async askForPackageAuthor() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package author in config
       this._config.packageAuthor = this.options['package-author'];
 
@@ -493,19 +492,19 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package author
     this._config.packageAuthor = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageAuthor',
-      'message' : 'Package author',
-      'default' : this.options['package-author']
+      type    : 'input',
+      name    : 'packageAuthor',
+      message : 'Package author',
+      default : this.options['package-author'],
     })).packageAuthor;
   }
 
   /**
    * Prompts for the license of this NPM package
    */
-  async askForPackageLicense () {
+  async askForPackageLicense() {
     // Check force
-    if (this.options['force']) {
+    if (this.options.force) {
       // Set package license in config
       this._config.packageLicense = this.options['package-license'];
 
@@ -515,10 +514,10 @@ class EdenNPMGenerator extends Generator {
 
     // Prompt for package license
     const packageLicense = (await this.prompt({
-      'type'    : 'input',
-      'name'    : 'packageLicense',
-      'message' : 'Package license',
-      'default' : validateLicense(this.options['package-license'] || '').validForNewPackages ? this.options['package-license'] : 'ISC'
+      type    : 'input',
+      name    : 'packageLicense',
+      message : 'Package license',
+      default : validateLicense(this.options['package-license'] || '').validForNewPackages ? this.options['package-license'] : 'ISC',
     })).packageLicense;
 
     // Set validation
@@ -546,11 +545,10 @@ class EdenNPMGenerator extends Generator {
   /**
    * Complete NPM 'package.json' generation
    */
-  end () {
+  end() {
     // Write package data to 'package.json' in destination directory
     fs.writeFileSync(this.destinationPath('package.json'), JSON.stringify(this._constructPackageJSON(), null, 2), 'utf8');
   }
-
 }
 
 /**
